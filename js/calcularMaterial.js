@@ -3,6 +3,9 @@ function calcularMateriais() {
     const qtd = parseInt(document.getElementById("quantidade").value);
     let materiais = {};
 
+    const produtoMuni = produto.startsWith("Muni");
+    let unidades = produtoMuni ? Math.ceil(qtd / 30) : qtd;
+
     // Penhores
     if (produto === "adesiva") {
         materiais = {
@@ -45,24 +48,24 @@ function calcularMateriais() {
 
     if (produto === "MuniPistola") {
         materiais = {
-            "Cobre": 15 * qtd,
-            "Frasco de Pólvora": 3 * qtd ,
+            "Cobre": 15 * unidades,
+            "Frasco de Pólvora": 3 * unidades ,
         };
     }
 
     if (produto === "MuniRifle") {
         materiais = {
-            "Alumínio": 30 * qtd,
-            "Cobre": 30 * qtd,
-            "Frasco de Pólvora": 8 * qtd
+            "Alumínio": 30 * unidades,
+            "Cobre": 30 * unidades,
+            "Frasco de Pólvora": 8 * unidades
         };
     }
 
     if (produto === "MuniSub") {
         materiais = {
-            "Alumínio": 15 * qtd,
-            "Cobre": 15 * qtd,
-            "Frasco de Pólvora": 5 * qtd,
+            "Alumínio": 15 * unidades,
+            "Cobre": 15 * unidades,
+            "Frasco de Pólvora": 5 * unidades,
         };
     }
 
@@ -91,7 +94,7 @@ function calcularMateriais() {
         html += `
         <tr>
             <td class="border border-gray-300 px-4 py-2">${item}</td>
-            <td class="border border-gray-300 px-4 py-2">${materiais[item]}</td>
+            <td class="border border-gray-300 px-4 py-2">${materiais[item].toLocaleString('pt-BR')}</td>
         </tr>
     `;
     }
@@ -102,7 +105,7 @@ function calcularMateriais() {
         <tfoot>
             <tr class="bg-gray-100 font-semibold">
                 <td class="border px-4 py-2">Unidade</td>
-                <td class="border px-4 py-2">${qtd * 30} munições</td>
+                <td class="border px-4 py-2">${(unidades * 30).toLocaleString('pt-BR')} munições</td>
             </tr>
         </tfoot>
         `;

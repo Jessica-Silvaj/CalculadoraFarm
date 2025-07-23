@@ -20,6 +20,9 @@ function adicionarTodosMateriais(produto) {
 
     let materiais = {};
 
+    const isMuni = produto.startsWith("Muni");
+    const unidades = isMuni ? Math.ceil(qtd / 30) : qtd;
+
     // Repetir toda lógica de cálculo (copiamos da calcularMateriais)
     if (produto === "adesiva") {
         materiais = { "Dinheiro Sujo": 115 * qtd };
@@ -50,24 +53,24 @@ function adicionarTodosMateriais(produto) {
 
     if (produto === "MuniPistola") {
         materiais = {
-            "Cobre": 15 * qtd,
-            "Frasco de Pólvora": 3 * qtd,
+            "Cobre": 15 * unidades,
+            "Frasco de Pólvora": 3 * unidades,
         };
     }
 
     if (produto === "MuniRifle") {
         materiais = {
-            "Alumínio": 30 * qtd,
-            "Cobre": 30 * qtd,
-            "Frasco de Pólvora": 8 * qtd
+            "Alumínio": 30 * unidades,
+            "Cobre": 30 * unidades,
+            "Frasco de Pólvora": 8 * unidades
         };
     }
 
     if(produto === "MuniSub") {
         materiais = {
-            "Alumínio": 15 * qtd,
-            "Cobre": 15 * qtd,
-            "Frasco de Pólvora": 5 * qtd,
+            "Alumínio": 15 * unidades,
+            "Cobre": 15 * unidades,
+            "Frasco de Pólvora": 5 * unidades,
         };
     }
 
@@ -83,7 +86,7 @@ function adicionarTodosMateriais(produto) {
     if (!produtosSelecionados[nomeProduto]) {
         produtosSelecionados[nomeProduto] = 0;
     }
-    produtosSelecionados[nomeProduto] += qtd;
+    produtosSelecionados[nomeProduto] += isMuni ? qtd : qtd;
 
     atualizarListaCard();
 }
@@ -107,7 +110,7 @@ function atualizarListaCard() {
                 <td class="border border-gray-300 px-4 py-2">${item}</td>
                 <td class="border border-gray-300 px-4 py-2">${item === "Dinheiro Sujo" 
                         ? listaMateriais[item].toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) 
-                        : listaMateriais[item]
+                        : listaMateriais[item].toLocaleString('pt-BR')
                 }</td>
             </tr>
         `;
@@ -120,7 +123,7 @@ function atualizarListaCard() {
     for (let nomeProduto in produtosSelecionados) {
         const nomeInterno = getNomeInterno(nomeProduto);
         if (nomeInterno && nomeInterno.startsWith("Muni")) {
-            totalUnidades += produtosSelecionados[nomeProduto] * 30;
+            totalUnidades += Math.ceil(produtosSelecionados[nomeProduto] /30) * 30;
         }
     }
 
@@ -130,7 +133,7 @@ function atualizarListaCard() {
             <tfoot>
                 <tr class="bg-gray-100 font-semibold">
                     <td class="border px-4 py-2">Unidade</td>
-                    <td class="border px-4 py-2">${totalUnidades} munições</td>
+                    <td class="border px-4 py-2">${totalUnidades.toLocaleString('pt-BR')} munições</td>
                 </tr>
             </tfoot>
         `;
@@ -177,11 +180,11 @@ function limparLista() {
 function removerProduto(produto) {
     const qtd = produtosSelecionados[produto];
     if (!qtd) return;
-
     let materiais = {};
-
-    // Mapear nomes visuais para internos
     const nomeInterno = getNomeInterno(produto);
+
+    const isMuni = nomeInterno && nomeInterno.startsWith("Muni");
+    const Unidades = isMuni ? Math.ceil(qtd / 30) : qtd;
 
     if (nomeInterno === "adesiva") materiais = { "Dinheiro Sujo": 115 * qtd };
     else if (nomeInterno === "eletronico") materiais = { "Dinheiro Sujo": 550 * qtd };
@@ -193,55 +196,16 @@ function removerProduto(produto) {
     else if (nomeInterno === "explosivo") materiais = {
         "Plástico": 3 * qtd, "Fita Adesiva": 1 * qtd, "Frasco de Pólvora": 2 * qtd
     };
-    else if (nomeInterno === "sub") materiais = {
-        "Sucata de Metal": 45 * qtd, "Alumínio": 24 * qtd,
-        "Cobre": 24 * qtd, "Frasco de Pólvora": 7 * qtd
+    else if (nomeInterno === "MuniPistola") materiais = {
+        "Cobre": 15 * Unidades, "Frasco de Pólvora": 3 * Unidades
     };
-    else if (nomeInterno === "pistola") materiais = {
-        "Sucata de Metal": 25 * qtd, "Cobre": 30 * qtd,
-        "Frasco de Pólvora": 6 * qtd
+    else if (nomeInterno === "MuniRifle") materiais = {
+        "Alumínio": 30 * Unidades, "Cobre": 30 * Unidades,
+        "Frasco de Pólvora": 8 * Unidades
     };
-    else if (nomeInterno === "rifle") materiais = {
-        "Sucata de Metal": 75 * qtd, "Alumínio": 35 * qtd,
-        "Cobre": 35 * qtd, "Frasco de Pólvora": 8 * qtd
-    };
-    else if (nomeInterno === "espingarda") materiais = {
-        "Sucata de Metal": 150 * qtd, "Alumínio": 21 * qtd,
-        "Frasco de Pólvora": 5 * qtd
-    };
-    else if (nomeInterno === "glock" || nomeInterno === "m1911") materiais = {
-        "Sucata de Metal": 685 * qtd, "Peça de Armas": 6 * qtd, "Aluminínio": 175 * qtd,
-        "Plástico": 225 * qtd, "Borracha": 225 * qtd, "Peça de Pistola": 1 * qtd,
-        "Vidro": 225 * qtd, "Cobre": 175 * qtd
-    };
-    else if (nomeInterno === "amt380") materiais = {
-        "Sucata de Metal": 505 * qtd, "Peça de Armas": 6 * qtd, "Aluminínio": 115 * qtd,
-        "Plástico": 125 * qtd, "Borracha": 150 * qtd, "Peça de Pistola": 1 * qtd,
-        "Vidro": 150 * qtd, "Cobre": 115 * qtd
-    };
-    else if (nomeInterno === "fx45") materiais = {
-        "Vidro": 105 * qtd, "Cobre": 85 * qtd, "Plástico": 105 * qtd,
-        "M1911": 1 * qtd, "Fio de Cobre": 3 * qtd,
-        "Borracha": 105 * qtd, "Aluminínio": 85 * qtd,
-        "Turbo de Plástico": 3 * qtd
-    };
-    else if (nomeInterno === "eagle") materiais = {
-        "Vidro": 105 * qtd, "Cobre": 85 * qtd, "Glock": 1 * qtd,
-        "Aluminínio": 85 * qtd, "Fio de Cobre": 5 * qtd,
-        "Borracha": 105 * qtd, "Plástico": 105 * qtd,
-        "Turbo de Plástico": 5 * qtd
-    };
-    else if (nomeInterno === "p7m10") materiais = {
-        "Parafusos Pequenos": 2 * qtd, "Cobre": 50 * qtd,
-        "Sucata de Metal": 2 * qtd, "Plástico": 80 * qtd,
-        "Vidro": 80 * qtd, "Borracha": 80 * qtd,
-        "Aluminínio": 50 * qtd, "AMT 380": 1 * qtd
-    };
-    else if (nomeInterno === "five") materiais = {
-        "Parafusos Pequenos": 1 * qtd, "Cobre": 50 * qtd,
-        "Sucata de Metal": 1 * qtd, "M1911": 1 * qtd,
-        "Vidro": 80 * qtd, "Borracha": 80 * qtd,
-        "Aluminínio": 50 * qtd, "Plástico": 80 * qtd
+    else if (nomeInterno === "MuniSub") materiais = {
+        "Alumínio": 15 * Unidades, "Cobre": 15 * Unidades,
+        "Frasco de Pólvora": 5 * Unidades   
     };
 
     // Remover materiais da lista
