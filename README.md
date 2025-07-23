@@ -1,7 +1,7 @@
 
 # 📦 Calculadora de Materiais para Crafting
 
-Este sistema é uma calculadora interativa para estimar e organizar materiais necessários para produção de itens em jogos baseados em crafting. A interface é 100% em português e desenvolvida com HTML + TailwindCSS + JavaScript.
+Este sistema é uma calculadora interativa para estimar e organizar materiais necessários para produção de alguns itens
 
 ---
 
@@ -26,7 +26,7 @@ Este sistema é uma calculadora interativa para estimar e organizar materiais ne
 - Mostra:
   - Materiais totais com formatação adequada
   - Produtos adicionados com botões para remoção
-  - Rodapé com **total em R$** ou total de munições (com `.toLocaleString('pt-BR')`)
+  - Rodapé com **total em R$** ou **total de munições**
 
 ### 📄 4. **Exportação para PDF**
 - Um botão `📄 Exportar PDF` gera automaticamente um arquivo com:
@@ -36,28 +36,9 @@ Este sistema é uma calculadora interativa para estimar e organizar materiais ne
 ### 🔁 5. **Persistência Local**
 - Utiliza `localStorage` para manter a lista entre sessões do navegador.
 
-
----
-
-## 📁 Estrutura de Arquivos
-
-├── index.html # Interface da calculadora
-├── calcularMaterial.js # Cálculo individual de materiais por produto
-├── listaMaterial.js # Gerenciamento da lista acumulada
-├── exportarPDF.js # Exportação em PDF usando jsPDF + AutoTable
-
-# 📌 Tecnologias Usadas
-
-- **JavaScript Puro**
-- **Tailwind CSS**
-- **jsPDF + AutoTable**
-- **SheetJS (XLSX - opcional)**
-
----
-
 ## 🛠 Como usar
 
-1. Abra o arquivo `index.html` em seu navegador.
+1. Abra o arquivo `index.html` em seu navegador ou click no aquivo.
 2. Selecione o produto desejado.
 3. Digite a quantidade e clique em 🔍 "Pesquisar".
 4. Revise os materiais listados.
