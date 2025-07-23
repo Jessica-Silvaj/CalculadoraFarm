@@ -14,8 +14,12 @@ Este sistema é uma calculadora interativa para estimar e organizar materiais ne
 
 ### 🧠 2. **Lógica Inteligente de Munição**
 - Para produtos do tipo `Munição`, o sistema entende que **1 unidade representa 30 munições**.
-- Se o usuário digitar `500`, o sistema arredonda para `Math.ceil(500 / 30)` pacotes e calcula os materiais necessários proporcionalmente.
-- Exemplo: `500` munições vira `17` pacotes de 30 → `510` munições no total.
+- O cálculo de materiais só ocorre **ao ultrapassar o limite de 30**.
+- Exemplo:
+  - `30` munições → **não soma material ainda**
+  - `31` munições → **soma materiais de 1 pacote**
+  - `61` munições → **soma materiais de 2 pacotes**
+- A primeira vez que o item é adicionado, os materiais também são contabilizados apenas quando ultrapassado o pack.
 
 ### ➕ 3. **Lista de Materiais**
 - Ao clicar em "➕ Adicionar Materiais", o item é somado à lista acumulativa da lateral direita.
@@ -32,6 +36,7 @@ Este sistema é uma calculadora interativa para estimar e organizar materiais ne
 ### 🔁 5. **Persistência Local**
 - Utiliza `localStorage` para manter a lista entre sessões do navegador.
 
+
 ---
 
 ## 📁 Estrutura de Arquivos
@@ -41,7 +46,7 @@ Este sistema é uma calculadora interativa para estimar e organizar materiais ne
 ├── listaMaterial.js # Gerenciamento da lista acumulada
 ├── exportarPDF.js # Exportação em PDF usando jsPDF + AutoTable
 
-## 📌 Tecnologias Usadas
+# 📌 Tecnologias Usadas
 
 - **JavaScript Puro**
 - **Tailwind CSS**
@@ -65,5 +70,4 @@ Este sistema é uma calculadora interativa para estimar e organizar materiais ne
 
 - Todos os valores são formatados para o padrão brasileiro.
 - A tabela final ajusta corretamente "Dinheiro Sujo" com `R$`, e os demais itens com separadores decimais.
-
----
+- Munições só impactam nos materiais **após passarem de múltiplos de 30**.

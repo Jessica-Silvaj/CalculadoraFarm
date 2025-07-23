@@ -79,7 +79,25 @@ function adicionarTodosMateriais(produto) {
         if (!listaMateriais[item]) {
             listaMateriais[item] = 0;
         }
-        listaMateriais[item] += materiais[item];
+        
+        if (isMuni) {
+            const qtdAnterior = produtosSelecionados[nomeProduto] || 0;
+            const qtdTotal = qtdAnterior + qtd;
+            const packsAntes = Math.floor((qtdAnterior - 1) / 30);
+            const packsAgora = Math.floor((qtdTotal - 1) / 30);
+            const novosPacks = packsAgora - packsAntes;
+
+            const porPack = materiais[item] / unidades;
+
+            if (qtdAnterior == 0) {
+                // Primeira vez: garantir ao menos 1 pack completo
+                listaMateriais[item] += materiais[item];
+            } else if (novosPacks > 0) {
+                listaMateriais[item] += novosPacks * porPack;
+            }
+        } else {
+            listaMateriais[item] += materiais[item];
+        }
     }
 
     // Atualizar lista de produtos
