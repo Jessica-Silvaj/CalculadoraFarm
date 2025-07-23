@@ -1,58 +1,60 @@
 
 # 📦 Calculadora de Materiais para Crafting
 
-Este sistema é uma calculadora interativa para estimar e organizar materiais necessários para produção de alguns itens
+Calculadora interativa para estimar e organizar os materiais necessários na produção de itens, com foco em sistemas de crafting. Desenvolvido em HTML, JavaScript puro e TailwindCSS.
 
 ---
 
 ## 🚀 Funcionalidades
 
-### 🔍 1. **Simulação de Materiais**
-- O usuário escolhe um produto (como "Munição de Pistola", "Explosivo", "C4", etc.).
-- Insere a **quantidade desejada**.
-- O sistema exibe automaticamente os **materiais necessários**, em uma tabela formatada com valores separados por vírgula (formato brasileiro).
+### 🔍 1. Simulação de Materiais
+- Escolha um produto (ex: "Munição de Pistola", "Explosivo", "C4", etc.)
+- Insira a quantidade desejada
+- Visualize os materiais necessários com valores no padrão brasileiro (ex: 1.000,00)
 
-### 🧠 2. **Lógica Inteligente de Munição**
-- Para produtos do tipo `Munição`, o sistema entende que **1 unidade representa 30 munições**.
-- O cálculo de materiais só ocorre **ao ultrapassar o limite de 30**.
-- Exemplo:
-  - `30` munições → **não soma material ainda**
-  - `31` munições → **soma materiais de 1 pacote**
-  - `61` munições → **soma materiais de 2 pacotes**
-- A primeira vez que o item é adicionado, os materiais também são contabilizados apenas quando ultrapassado o pack.
+### 🧠 2. Lógica Inteligente para Munição
+- Cada 1 unidade equivale a 30 munições
+- Materiais só são somados ao **ultrapassar** múltiplos de 30
+- Exemplos:
+  - `30` munições → ❌ não soma
+  - `31` munições → ✅ soma 1 pack
+  - `61` munições → ✅ soma 2 packs
 
-### ➕ 3. **Lista de Materiais**
-- Ao clicar em "➕ Adicionar Materiais", o item é somado à lista acumulativa da lateral direita.
-- Mostra:
-  - Materiais totais com formatação adequada
-  - Produtos adicionados com botões para remoção
-  - Rodapé com **total em R$** ou **total de munições**
+### ➕ 3. Lista de Materiais
+- Acumula os materiais adicionados
+- Permite remover itens individualmente
+- Exibe total formatado com separadores ou `R$`
 
-### 📄 4. **Exportação para PDF**
-- Um botão `📄 Exportar PDF` gera automaticamente um arquivo com:
-  - Lista de materiais formatada
-  - Lista de produtos selecionados
+### 📄 4. Exportação para PDF
+- Geração automática de PDF com:
+  - Materiais totais
+  - Produtos selecionados
 
-### 🔁 5. **Persistência Local**
-- Utiliza `localStorage` para manter a lista entre sessões do navegador.
-
-## 🛠 Como usar
-
-1. Abra o arquivo `index.html` em seu navegador ou click no aquivo.
-2. Selecione o produto desejado.
-3. Digite a quantidade e clique em 🔍 "Pesquisar".
-4. Revise os materiais listados.
-5. Clique em ➕ "Adicionar Materiais" para montar sua lista.
-6. Exporte em PDF, se quiser.
+### 🔁 5. Persistência Local
+- Salva os dados com `localStorage` entre sessões
 
 ---
-
-## 📦 Observações
-
-- Todos os valores são formatados para o padrão brasileiro.
-- A tabela final ajusta corretamente "Dinheiro Sujo" com `R$`, e os demais itens com separadores decimais.
-- Munições só impactam nos materiais **após passarem de múltiplos de 30**.
 
 ## 📥 Baixar esta versão
 
 [⬇️ Clique aqui para baixar o ZIP da versão v1.0.0](https://github.com/Jessica-Silvaj/CalculadoraFarm/archive/refs/tags/v1.0.0.zip)
+
+---
+
+## 🛠 Como usar
+
+1. Baixe e **descompacte o arquivo ZIP**
+2. Abra o `index.html` em um navegador
+3. Use a interface:
+   - Selecione o produto
+   - Digite a quantidade e clique em 🔍 "Pesquisar"
+   - Clique em ➕ "Adicionar Materiais" para montar sua lista
+   - Exporte em 📄 PDF se desejar
+
+---
+
+## 📌 Observações
+
+- Valores seguem o padrão brasileiro
+- "Dinheiro Sujo" usa formatação monetária (`R$`)
+- Materiais de munição só são somados ao **ultrapassar múltiplos de 30**
