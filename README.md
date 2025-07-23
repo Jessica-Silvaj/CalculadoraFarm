@@ -52,3 +52,7 @@ Este sistema é uma calculadora interativa para estimar e organizar materiais ne
 - Todos os valores são formatados para o padrão brasileiro.
 - A tabela final ajusta corretamente "Dinheiro Sujo" com `R$`, e os demais itens com separadores decimais.
 - Munições só impactam nos materiais **após passarem de múltiplos de 30**.
+
+## 📥 Baixar esta versão
+
+[⬇️ Clique aqui para baixar o ZIP da versão v1.0.0](https://github.com/Jessica-Silvaj/CalculadoraFarm/archive/refs/tags/v1.0.0.zip)
