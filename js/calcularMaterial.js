@@ -120,6 +120,7 @@ function calcularMateriais() {
 `;
 
     document.getElementById("resultado").innerHTML = html;
+    mostrarTotalResultado(materiais);
 
 }
 

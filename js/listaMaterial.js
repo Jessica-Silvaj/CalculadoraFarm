@@ -89,6 +89,7 @@ function adicionarTodosMateriais(produto) {
     produtosSelecionados[nomeProduto] += isMuni ? qtd : qtd;
 
     atualizarListaCard();
+    mostrarAviso();
 }
 
 
